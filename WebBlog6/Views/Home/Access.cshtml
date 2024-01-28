@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Контроль доступа";
+}
+@model AccessModel;
+<h1>@ViewData["Title"]</h1>
+
+<center>
+ <table border=0 style='background-image: url("/form_fone.jpg");border-radius: 10px;width:350px;'>
+        <tr>
+            <td colspan=2>
+                <!-- Вход  -->
+                <div id=next>
+                    <form method="post" asp-controller="Home" asp-action="Index">
+                        Логин:<br>
+                        <input asp-for="Login" class="form-control" style="border-radius:10px;"><br>
+                        Пароль:<br>
+                        <input asp-for="Pass" class="form-control" style="border-radius:10px;"><br>
+                        <button style="border-radius:10px;" onklick="form.submit();">Войти</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+  </tr>
+        <tr>
+            <td >
+                <!-- Регистрация  -->
+                <div id=next>
+                    <form method="post" asp-controller="Home" asp-action="Register">
+                        <button style="border-radius:10px;" onklick="form.submit();">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+ </table>
+ </center>
