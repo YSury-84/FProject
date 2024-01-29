@@ -11,10 +11,12 @@
                 <!-- Вход  -->
                 <div id=next>
                     <form method="post" asp-controller="Home" asp-action="Index">
-                        Логин:<br>
-                        <input asp-for="Login" class="form-control" style="border-radius:10px;"><br>
-                        Пароль:<br>
-                        <input asp-for="Pass" class="form-control" style="border-radius:10px;"><br>
+                        <label asp-for="Login"></label><br>
+                        <input asp-for="Login" class="form-control" style="border-radius:10px;">
+                        <span asp-validation-for="Login"></span><br>
+                        <label asp-for="Pass"></label><br>
+                        <input asp-for="Pass" class="form-control" style="border-radius:10px;">
+                        <span asp-validation-for="Pass"></span><br>
                         <button style="border-radius:10px;" onklick="form.submit();">Войти</button>
                     </form>
                 </div>
