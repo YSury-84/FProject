@@ -5,10 +5,74 @@
 
 <table>
     <tr><td>Управление пользователями:</td><td>Управление тегами:</</td></tr>
-    <tr><td>
-     //Управление пользователями:
-    </td><td>
-     //Управление тегами:
-    </td></tr>
+    <tr>
+        <td>
+            <!-- Управление пользователями: -->
+            <table border="1" style="border-radius: 10px;">
+                <tr style="background-color: orange;">
+                    <td>ФИО пользователя:</td>
+                    <td>Логин:</td>
+                    <td>Дата регистрации:</td>
+                    <td>Уровень доступа:</td>
+                    <td>Сохранение:</td>
+                </tr>
+                @foreach (var people in ViewBag.users)
+                {
+                    <tr>
+                        <td>@people.Fio</td>
+                        <td>@people.Login</td>
+                        <td>@people.RegDate</td>
+                        @if (people.Role == "user")
+                        {
+                            <td>
+                                <select id="Role" name="Role">
+                                    <optgroup label="Пользователи">
+                                        <option value="user" selected>Пользователь</option>
+                                    </optgroup>
+                                    <optgroup label="Администраторы">
+                                        <option value="admin">Администратор</option>
+                                        <option value="moder">Модератор</option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                        }
+                        @if (people.Role == "admin")
+                        {
+                            <td>
+                                <select id="Role" name="Role">
+                                    <optgroup label="Пользователи">
+                                        <option value="user">Пользователь</option>
+                                    </optgroup>
+                                    <optgroup label="Администраторы">
+                                        <option value="admin" selected>Администратор</option>
+                                        <option value="moder">Модератор</option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                        }
+                        @if (people.Role == "moder")
+                        {
+                            <td>
+                                <select id="Role" name="Role">
+                                    <optgroup label="Пользователи">
+                                        <option value="user">Пользователь</option>
+                                    </optgroup>
+                                    <optgroup label="Администраторы">
+                                        <option value="admin">Администратор</option>
+                                        <option value="moder" selected>Модератор</option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                        }
+                        <td><button onclick="alert('Функция еще не реализована!');">Сохранить</button></td>
+                    </tr>
+                }
+            </table>
+        </td>
+        <td>
+            <!-- Управление тегами: -->
+
+        </td>
+    </tr>
 </table>
 

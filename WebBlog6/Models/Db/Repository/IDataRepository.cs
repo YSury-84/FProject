@@ -7,8 +7,7 @@ namespace WebBlog6.Models.Db.Repository
         Task UserAdd(User user);
         bool UserAccess(ref User user);
         bool UserCookies(ref User user);
-        User UserData(User user);
-        List<User> UserAll(User user);
+        void UserAll(ref List<User> listUser);
         Task BlogAdd(Blog blog);
         Task CommentAdd(Comment comment);
         Task TegBlogsAdd(int sid, int tid);

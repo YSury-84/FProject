@@ -69,33 +69,12 @@ namespace WebBlog6.Models.Db.Repository
             return false;
         }
 
-        public User UserData(User user)
+        public void UserAll(ref List<User> listUser)
         {
-            var entry = _context.Entry(user);
-            if (entry.State == EntityState.Detached)
-            {
-                foreach (var people in _context.Users)
-                {
-                    if (people.Login == user.Login)
-                        if (people.Pass == user.Pass)
-                            return people;
-                }
-            }
-            return user;
-        }
-
-        public List<User> UserAll(User user)
-        {
-            List<User> luser = new List<User>();
-            var entry = _context.Entry(user);
-            if (entry.State == EntityState.Detached)
-            {
-                foreach (var people in _context.Users)
-                {
-                    luser.Add(people);
-                }
-            }
-            return luser;
+           foreach (var people in _context.Users)
+           {
+            listUser.Add(people);
+           }
         }
 
         //Работа с базой Blogs

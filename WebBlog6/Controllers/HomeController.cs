@@ -87,6 +87,7 @@ namespace WebBlog6.Controllers
 
         public IActionResult AdminPanel()
         {
+            //Стандартная схема загрузки с авторизацией
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
             {
@@ -95,9 +96,10 @@ namespace WebBlog6.Controllers
                 {
                     if (user.Role == "admin")
                     {
-                        List<User> lUser = new List<User>();
-                        lUser = _data.UserAll(user);
+                        List<User> listUser = new List<User>();
+                        _data.UserAll(ref listUser);
                         ViewBag.user = user;
+                        ViewBag.users = listUser;
                         return View();
                     }
                     return View("Index");
