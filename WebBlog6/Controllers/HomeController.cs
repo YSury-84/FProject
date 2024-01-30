@@ -24,11 +24,13 @@ namespace WebBlog6.Controllers
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
             {
-                User user = new User();
-                user.Login = wbLogin;
-                _data.UserAccess(ref user);
-                ViewBag.user = user;
-                return View();
+                User user = new User() { Login = wbLogin };
+                if (_data.UserCookies(ref user))
+                {
+                    ViewBag.user = user;
+                    return View();
+                }
+                return View("Access");
             }
             else
             {
@@ -64,18 +66,22 @@ namespace WebBlog6.Controllers
         }
 
         public IActionResult Access()
-        { 
+        {
+            //Авторизация не требуется
             return View();
         }
 
         public IActionResult About()
         {
+            //Сброс авторизации
             Response.Cookies.Append("wbLogin", "");
+            //Авторизация не требуется
             return View();
         }
 
         public IActionResult Register()
         {
+            //Авторизация не требуется
             return View();
         }
 
@@ -84,14 +90,14 @@ namespace WebBlog6.Controllers
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
             {
-                User user = new User();
-                user.Login = wbLogin;
-                if (_data.UserAccess(ref user))
+                User user = new User() { Login = wbLogin};
+                if (_data.UserCookies(ref user))
                 {
                     if (user.Role == "admin")
                     {
                         List<User> lUser = new List<User>();
                         lUser = _data.UserAll(user);
+                        ViewBag.user = user;
                         return View();
                     }
                     return View("Index");

@@ -52,6 +52,23 @@ namespace WebBlog6.Models.Db.Repository
             return false;
         }
 
+        public bool UserCookies(ref User user)
+        {
+            var entry = _context.Entry(user);
+            if (entry.State == EntityState.Detached)
+            {
+                foreach (var people in _context.Users)
+                {
+                    if (people.Login == user.Login)
+                        {
+                            user = people;
+                            return true;
+                        }
+                }
+            }
+            return false;
+        }
+
         public User UserData(User user)
         {
             var entry = _context.Entry(user);

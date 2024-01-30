@@ -1,8 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Главная страница";
 }
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (ViewBag.user.Role == "admin")
+{
+    <div id=next>
+        <form method="post" asp-controller="Home" asp-action="AdminPanel">
+            <button style="border-radius:10px;" onklick="form.submit();">Панель администрирования</button>
+        </form>
+    </div>
+}

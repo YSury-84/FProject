@@ -6,6 +6,7 @@ namespace WebBlog6.Models.Db.Repository
     {
         Task UserAdd(User user);
         bool UserAccess(ref User user);
+        bool UserCookies(ref User user);
         User UserData(User user);
         List<User> UserAll(User user);
         Task BlogAdd(Blog blog);
