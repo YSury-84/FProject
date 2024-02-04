@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Редактор блога";
+}
+@model TegModel;
+<h1>@ViewData["Title"]</h1>
+
+<table>
+    <tr><td>Управление тегами:</td></tr>
+    <tr>
+        <td>
+            <!-- Управление пользователями: -->
+            <table border="1" style="border-radius: 10px;">
+                <tr style="background-color: orange;">
+                    <td><label asp-for="TegName"></label></td>
+                    <td>Функции:</td>
+                </tr>
+                @foreach (var teg in ViewBag.tegs)
+                {
+                    <tr>
+                        <form method="post" asp-controller="Home" asp-action="SaveTeg">
+                        <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" readonly value="@teg.TegName"></td>
+                        <td><button style="border-radius:10px;">Удалить тег</button></td>
+                        </form>
+                    </tr>
+                }
+                <tr>
+                    <form method="post" asp-controller="Home" asp-action="SaveTeg">
+                    <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" value=""></td>
+                    <td><button style="border-radius:10px;">Добавить тег</button></td>
+                    </form>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

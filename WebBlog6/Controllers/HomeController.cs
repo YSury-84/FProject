@@ -186,6 +186,29 @@ namespace WebBlog6.Controllers
         }
 
 
+        public IActionResult BlogPanel(Blog blog)
+        {
+            //Стандартная схема загрузки с авторизацией
+            string wbLogin = Request.Cookies["wbLogin"];
+            if (wbLogin != null && wbLogin != "")
+            {
+                User user = new User() { Login = wbLogin };
+                if (_data.UserCookies(ref user))
+                {
+                    if (user.Role == "admin" || user.Role == "moder")
+                    {
+                        ViewBag.user = user;
+                        ViewBag.blog = blog;
+                        return View();
+                    }
+                    return View("Index");
+                }
+                return View("Access");
+            }
+            return View("Access");
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
