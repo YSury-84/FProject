@@ -6,11 +6,28 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@if (ViewBag.user.Role == "admin")
-{
-    <div id=next>
-        <form method="post" asp-controller="Home" asp-action="AdminPanel">
-            <button style="border-radius:10px;" onklick="form.submit();">Панель администрирования</button>
-        </form>
-    </div>
-}
+<table width="100%">
+    <tr><td align="center" colspan="2"><-- Функцциональные клавиши согласно полномочий --></td></tr>
+    <tr>
+        <td>
+            @if (ViewBag.user.Role == "admin")
+            {
+
+                <form method="post" asp-controller="Home" asp-action="AdminPanel">
+                    <button style="border-radius:10px;" onklick="form.submit();">Управление пользователями/ролями</button>
+                </form>
+
+            }
+        </td>
+        <td>
+            @if (ViewBag.user.Role == "admin" || ViewBag.user.Role == "moder")
+            {
+
+                <form method="post" asp-controller="Home" asp-action="TegPanel">
+                    <button style="border-radius:10px;" onklick="form.submit();">Управление тегами</button>
+                </form>
+
+            }
+        </td>
+    </tr>
+</table>

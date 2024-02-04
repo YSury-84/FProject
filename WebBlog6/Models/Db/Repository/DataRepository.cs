@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Text;
 using WebBlog6.Models.db;
 using WebBlog6.Models.Db.Context;
 
@@ -120,22 +121,37 @@ namespace WebBlog6.Models.Db.Repository
 
         public async Task TegAdd(Teg teg)
         {
-            // Добавление публикации
-            var entry = _context.Entry(teg);
-            if (entry.State == EntityState.Detached)
-                _context.Tegs.AddAsync(teg);
-            // Сохранение изенений
-            _context.SaveChangesAsync();
+            bool tadd = true;
+            foreach (var xteg in _context.Tegs)
+                {
+                if (xteg.TegName == teg.TegName)
+                {
+                    tadd = false;
+                }
+            }
+            if (tadd == true)
+            {
+                // Добавление тега
+                var entry = _context.Entry(teg);
+                if (entry.State == EntityState.Detached)
+                    _context.Tegs.AddAsync(teg);
+                // Сохранение изенений
+                _context.SaveChangesAsync();
+            } else
+            {
+                // Удаление тага - если он уже есть в списке
+                _context.Tegs.Remove(teg);
+                // Сохранение изенений
+                _context.SaveChangesAsync();
+            }
         }
 
-        public async Task TegRem(Teg teg)
+        public void TegList(ref List<Teg> listTeg)
         {
-            // Добавление публикации
-            var entry = _context.Entry(teg);
-            if (entry.State == EntityState.Detached)
-                _context.Tegs.Remove(teg);
-            // Сохранение изенений
-            _context.SaveChangesAsync();
+            foreach (var teg in _context.Tegs)
+            {
+                listTeg.Add(teg);
+            }
         }
 
     }

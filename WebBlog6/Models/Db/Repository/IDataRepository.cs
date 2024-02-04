@@ -12,6 +12,6 @@ namespace WebBlog6.Models.Db.Repository
         Task CommentAdd(Comment comment);
         Task TegBlogsAdd(int sid, int tid);
         Task TegAdd(Teg teg);
-        Task TegRem(Teg teg);
+        void TegList(ref List<Teg> listTeg);
     }
 }

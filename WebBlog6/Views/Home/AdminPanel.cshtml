@@ -1,31 +1,35 @@
 ﻿@{
-    ViewData["Title"] = "Панель администрирования";
+    ViewData["Title"] = "Управление пользователями/ролями";
 }
+@model UserModel;
 <h1>@ViewData["Title"]</h1>
 
 <table>
-    <tr><td>Управление пользователями:</td><td>Управление тегами:</</td></tr>
+    <tr><td>Управление пользователями:</td></tr>
     <tr>
         <td>
             <!-- Управление пользователями: -->
             <table border="1" style="border-radius: 10px;">
                 <tr style="background-color: orange;">
-                    <td>ФИО пользователя:</td>
-                    <td>Логин:</td>
-                    <td>Дата регистрации:</td>
-                    <td>Уровень доступа:</td>
+                    <td><label asp-for="Fio"></label></td>
+                    <td><label asp-for="Login"></label></td>
+                    <td><label asp-for="Pass"></label></td>
+                    <td><label asp-for="RegDate"></label></td>
+                    <td><label asp-for="Role"></label></td>
                     <td>Сохранение:</td>
                 </tr>
                 @foreach (var people in ViewBag.users)
                 {
                     <tr>
-                        <td>@people.Fio</td>
-                        <td>@people.Login</td>
-                        <td>@people.RegDate</td>
+                        <form method="post" asp-controller="Home" asp-action="SaveUser">
+                        <td><input asp-for="Fio" class="form-control" style="border-radius:10px;" readonly value="@people.Fio"></td>
+                        <td><input asp-for="Login" class="form-control" style="border-radius:10px;" readonly value="@people.Login"></td>
+                        <td><input asp-for="Pass" class="form-control" style="border-radius:10px;" readonly value="@people.Pass"></td>
+                        <td><input asp-for="RegDate" class="form-control" style="border-radius:10px;" readonly value="@people.RegDate"></td>
                         @if (people.Role == "user")
                         {
                             <td>
-                                <select id="Role" name="Role">
+                                <select id="Role" asp-for="Role">
                                     <optgroup label="Пользователи">
                                         <option value="user" selected>Пользователь</option>
                                     </optgroup>
@@ -39,7 +43,7 @@
                         @if (people.Role == "admin")
                         {
                             <td>
-                                <select id="Role" name="Role">
+                                <select id="Role" asp-for="Role">
                                     <optgroup label="Пользователи">
                                         <option value="user">Пользователь</option>
                                     </optgroup>
@@ -53,7 +57,7 @@
                         @if (people.Role == "moder")
                         {
                             <td>
-                                <select id="Role" name="Role">
+                                <select id="Role" asp-for="Role">
                                     <optgroup label="Пользователи">
                                         <option value="user">Пользователь</option>
                                     </optgroup>
@@ -64,14 +68,12 @@
                                 </select>
                             </td>
                         }
-                        <td><button onclick="alert('Функция еще не реализована!');">Сохранить</button></td>
+                        <td>
+                            <button style="border-radius:10px;">Сохранить</button>
+                            </td></form>
                     </tr>
                 }
             </table>
-        </td>
-        <td>
-            <!-- Управление тегами: -->
-
         </td>
     </tr>
 </table>
