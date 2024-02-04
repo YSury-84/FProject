@@ -1,35 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Редактор блога";
 }
-@model TegModel;
+@model BlogModel;
 <h1>@ViewData["Title"]</h1>
 
 <table>
-    <tr><td>Управление тегами:</td></tr>
+    <tr><td>Управление блогом:</td></tr>
     <tr>
         <td>
-            <!-- Управление пользователями: -->
-            <table border="1" style="border-radius: 10px;">
-                <tr style="background-color: orange;">
-                    <td><label asp-for="TegName"></label></td>
-                    <td>Функции:</td>
-                </tr>
-                @foreach (var teg in ViewBag.tegs)
-                {
-                    <tr>
-                        <form method="post" asp-controller="Home" asp-action="SaveTeg">
-                        <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" readonly value="@teg.TegName"></td>
-                        <td><button style="border-radius:10px;">Удалить тег</button></td>
-                        </form>
-                    </tr>
-                }
-                <tr>
-                    <form method="post" asp-controller="Home" asp-action="SaveTeg">
-                    <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" value=""></td>
-                    <td><button style="border-radius:10px;">Добавить тег</button></td>
-                    </form>
-                </tr>
-            </table>
+            <!-- Управление блогом: -->
+            <form method="post" asp-controller="Home" asp-action="SaveBlogModel">
+            <label asp-for="Id"></label><br>
+            <input asp-for="Id" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.Id"><br>
+            <label asp-for="Theme"></label><br>
+            <input asp-for="Theme" class="form-control" style="border-radius:10px;width:600px;" value="@ViewBag.blog.Theme"><br>
+            <label asp-for="BlogText"></label><br>
+            <textarea asp-for="BlogText" style="border-radius:10px;width:600px;" rows="7">
+            @ViewBag.blog.BlogText
+            </textarea><br>
+            <label asp-for="Autor"></label><br>
+            <input asp-for="Autor" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.Autor"><br>
+            <label asp-for="PubDate"></label><br>
+            <input asp-for="PubDate" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.PubDate"><br>
+            Список тегов:<br>
+                <asp:CheckBoxList runat="Tegs" ID="CheckboxList1" RepeatColumns="3">
+                    @foreach (var teg in ViewBag.tegs)
+                    {
+                        <asp:ListItem>
+                            <input type="checkbox" value="@teg.TegName"> @teg.TegName</asp:ListItem><br>
+                    }
+                </asp:CheckBoxList>
+            <br>
+            <button style="border-radius:10px;" onklick="form.submit();">Сохранить</button>
+            </form>
         </td>
     </tr>
 </table>

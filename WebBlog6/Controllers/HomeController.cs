@@ -185,7 +185,6 @@ namespace WebBlog6.Controllers
             return View("Access");
         }
 
-
         public IActionResult BlogPanel(Blog blog)
         {
             //Стандартная схема загрузки с авторизацией
@@ -197,10 +196,33 @@ namespace WebBlog6.Controllers
                 {
                     if (user.Role == "admin" || user.Role == "moder")
                     {
+                        if (blog == null || blog.Autor == null || blog.Autor == "") blog = new Blog() { Autor = user.Login, PubDate = Convert.ToString(DateTime.Now)};
                         ViewBag.user = user;
                         ViewBag.blog = blog;
+                        List<Teg> listTeg = new List<Teg>();
+                        _data.TegList(ref listTeg);
+                        ViewBag.tegs = listTeg;
                         return View();
                     }
+                    return View("Index");
+                }
+                return View("Access");
+            }
+            return View("Access");
+        }
+
+        [HttpPost]
+        public IActionResult SaveBlogModel(BlogModel blogm)
+        {
+            //Стандартная схема загрузки с авторизацией
+            string wbLogin = Request.Cookies["wbLogin"];
+            if (wbLogin != null && wbLogin != "")
+            {
+                User user = new User() { Login = wbLogin };
+                if (_data.UserCookies(ref user))
+                {
+
+                    ViewBag.user = user;
                     return View("Index");
                 }
                 return View("Access");
