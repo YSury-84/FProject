@@ -80,7 +80,7 @@ namespace WebBlog6.Models.Db.Repository
 
         //Работа с базой Blogs
 
-        public async Task BlogAdd(Blog blog)
+        public int BlogAdd(Blog blog)
         {
             // Добавление публикации
             var entry = _context.Entry(blog);
@@ -88,6 +88,7 @@ namespace WebBlog6.Models.Db.Repository
                 _context.Blogs.AddAsync(blog);
             // Сохранение изенений
             _context.SaveChangesAsync();
+            return blog.Id;
         }
 
         //Работа с базой Comments
@@ -104,10 +105,10 @@ namespace WebBlog6.Models.Db.Repository
 
         //Работа с базой TegBlogs
 
-        public async Task TegBlogsAdd(int sid, int tid)
+        public async Task TegBlogsAdd(int sid, string tid)
         {
             TegBlog tegBlog = new TegBlog();
-            tegBlog.SId = sid;
+            tegBlog.BId = sid;
             tegBlog.TId = tid;
             // Добавление публикации
             var entry = _context.Entry(tegBlog);

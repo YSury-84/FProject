@@ -3,7 +3,7 @@
     public class TegBlog
     {
         public int Id { get; set; }
-        public int SId { get; set; }
-        public int TId { get; set; }
+        public int BId { get; set; }
+        public string TId { get; set; }
     }
 }

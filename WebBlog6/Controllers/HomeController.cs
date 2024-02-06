@@ -221,7 +221,14 @@ namespace WebBlog6.Controllers
                 User user = new User() { Login = wbLogin };
                 if (_data.UserCookies(ref user))
                 {
-
+                    //Запись в базу данных статьи/блога
+                    Blog blog = new Blog() { Autor = user.Login, Theme = blogm.Theme, BlogText = blogm.BlogText, PubDate = blogm.PubDate };
+                    int i = _data.BlogAdd(blog);
+                    foreach (var tid in blogm.Tegs)
+                    {
+                        _data.TegBlogsAdd(i,tid.TegName);
+                    }
+                    //Отображение
                     ViewBag.user = user;
                     return View("Index");
                 }

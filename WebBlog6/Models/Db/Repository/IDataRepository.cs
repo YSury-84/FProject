@@ -8,9 +8,9 @@ namespace WebBlog6.Models.Db.Repository
         bool UserAccess(ref User user);
         bool UserCookies(ref User user);
         void UserAll(ref List<User> listUser);
-        Task BlogAdd(Blog blog);
+        int BlogAdd(Blog blog);
         Task CommentAdd(Comment comment);
-        Task TegBlogsAdd(int sid, int tid);
+        Task TegBlogsAdd(int sid, string tid);
         Task TegAdd(Teg teg);
         void TegList(ref List<Teg> listTeg);
     }
