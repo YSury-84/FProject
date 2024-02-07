@@ -102,7 +102,7 @@ namespace WebBlog6.Controllers
                         ViewBag.users = listUser;
                         return View();
                     }
-                    return View("Index");
+                    return View("NoAccess");
                 }
                 return View("Access");
             }
@@ -224,10 +224,10 @@ namespace WebBlog6.Controllers
                     //Запись в базу данных статьи/блога
                     Blog blog = new Blog() { Autor = user.Login, Theme = blogm.Theme, BlogText = blogm.BlogText, PubDate = blogm.PubDate };
                     int i = _data.BlogAdd(blog);
-                    foreach (var tid in blogm.Tegs)
-                    {
-                        _data.TegBlogsAdd(i,tid.TegName);
-                    }
+                    //foreach (var tid in blogm.Tegs)
+                    //{
+                    //    _data.TegBlogsAdd(i,tid.TegName);
+                    //}
                     //Отображение
                     ViewBag.user = user;
                     return View("Index");
