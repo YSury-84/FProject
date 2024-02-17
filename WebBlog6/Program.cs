@@ -37,11 +37,11 @@ namespace WebBlog6
 
             app.UseAuthorization();
 
-            app.UseMiddleware<LoggingMiddleware>();
-
             // обработка ошибок HTTP
             string readText = File.ReadAllText("wwwroot\\404.html");
             app.UseStatusCodePages("text/html", readText);
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             app.MapControllerRoute(
                 name: "default",

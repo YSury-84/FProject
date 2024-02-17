@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using WebBlog6.Models;
 using WebBlog6.Models.db;
+using WebBlog6.Models.Db;
 using WebBlog6.Models.Db.Repository;
 
 namespace WebBlog6.Controllers
@@ -17,7 +18,7 @@ namespace WebBlog6.Controllers
             _logger = logger;
             _data = data;
         }
-        
+
         public IActionResult Index(User getuser)
         {
             //Если реквизиты доступа сохранены в Куках
@@ -48,6 +49,8 @@ namespace WebBlog6.Controllers
                             {
                                 Response.Cookies.Append("wbLogin", getuser.Login);
                                 ViewBag.user = people;
+                                Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Index", Login = people.Login };
+                                _data.LogAdd(log);
                                 return View();
                             }
                         }
@@ -57,6 +60,8 @@ namespace WebBlog6.Controllers
                             getuser.Role = "user";
                             //Регистрация нового пользователя
                             _data.UserAdd(getuser);
+                            Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Index", Login = getuser.Login };
+                            _data.LogAdd(log);
                             return View("Access");
                         }
                     }
@@ -68,6 +73,8 @@ namespace WebBlog6.Controllers
         public IActionResult Access()
         {
             //Авторизация не требуется
+            Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Access", Login = "" };
+            _data.LogAdd(log);
             return View();
         }
 
@@ -76,12 +83,16 @@ namespace WebBlog6.Controllers
             //Сброс авторизации
             Response.Cookies.Append("wbLogin", "");
             //Авторизация не требуется
+            Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "About", Login = "" };
+            _data.LogAdd(log);
             return View();
         }
 
         public IActionResult Register()
         {
             //Авторизация не требуется
+            Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Register", Login = "" };
+            _data.LogAdd(log);
             return View();
         }
 
@@ -100,6 +111,8 @@ namespace WebBlog6.Controllers
                         _data.UserAll(ref listUser);
                         ViewBag.user = user;
                         ViewBag.users = listUser;
+                        Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "AdminPanel", Login = user.Login };
+                        _data.LogAdd(log);
                         return View();
                     }
                     return View("NoAccess");
@@ -126,8 +139,11 @@ namespace WebBlog6.Controllers
                         _data.UserAll(ref listUser);
                         ViewBag.user = user;
                         ViewBag.users = listUser;
+                        Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveUser", Login = user.Login };
+                        _data.LogAdd(log);
                         return View("AdminPanel");
                     }
+                    ViewBag.user = user;
                     return View("Index");
                 }
                 return View("Access");
@@ -150,8 +166,11 @@ namespace WebBlog6.Controllers
                         _data.TegList(ref listTeg);
                         ViewBag.user = user;
                         ViewBag.tegs = listTeg;
+                        Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "TegPanel", Login = user.Login };
+                        _data.LogAdd(log);
                         return View();
                     }
+                    ViewBag.user = user;
                     return View("Index");
                 }
                 return View("Access");
@@ -176,8 +195,11 @@ namespace WebBlog6.Controllers
                         _data.TegList(ref listTeg);
                         ViewBag.user = user;
                         ViewBag.tegs = listTeg;
+                        Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveTeg", Login = user.Login };
+                        _data.LogAdd(log);
                         return View("TegPanel");
                     }
+                    ViewBag.user = user;
                     return View("Index");
                 }
                 return View("Access");
@@ -194,7 +216,7 @@ namespace WebBlog6.Controllers
                 User user = new User() { Login = wbLogin };
                 if (_data.UserCookies(ref user))
                 {
-                    if (user.Role == "admin" || user.Role == "moder" || user.Role == "user")
+                    if (user.Role == "admin" || user.Role == "moder")
                     {
                         if (blog == null || blog.Autor == null || blog.Autor == "") blog = new Blog() { Autor = user.Login, PubDate = Convert.ToString(DateTime.Now)};
                         ViewBag.user = user;
@@ -202,8 +224,11 @@ namespace WebBlog6.Controllers
                         List<Teg> listTeg = new List<Teg>();
                         _data.TegList(ref listTeg);
                         ViewBag.tegs = listTeg;
+                        Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "BlogPanel", Login = user.Login };
+                        _data.LogAdd(log);
                         return View();
                     }
+                    //ViewBag.user = user;
                     return View("Index");
                 }
                 return View("Access");
@@ -230,6 +255,8 @@ namespace WebBlog6.Controllers
                     //}
                     //Отображение
                     ViewBag.user = user;
+                    Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveBlogModel", Login = user.Login };
+                    _data.LogAdd(log);
                     return View("Index");
                 }
                 return View("Access");
@@ -241,7 +268,8 @@ namespace WebBlog6.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

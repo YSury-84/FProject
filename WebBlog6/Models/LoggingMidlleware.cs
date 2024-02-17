@@ -1,4 +1,7 @@
-﻿namespace WebBlog6.Models
+﻿using WebBlog6.Models.Db;
+using WebBlog6.Models.Db.Repository;
+
+namespace WebBlog6.Models
 {
     public class LoggingMiddleware
     {
@@ -17,6 +20,11 @@
             string logMessage = $"[{DateTime.Now}]: New request to http://{context.Request.Host.Value + context.Request.Path}{Environment.NewLine}";
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "RequestLog.txt");
             await File.AppendAllTextAsync(logFilePath, logMessage);
+            //Log log = new Log();
+            //log.DT = Convert.ToString(DateTime.Now);
+            //log.Message = logMessage;
+            //log.Login = "";
+            //_data.LogAdd(log);
         }
         public async Task InvokeAsync(HttpContext context)
         {
