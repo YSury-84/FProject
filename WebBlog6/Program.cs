@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WebBlog6.Models.Db.Context;
 using WebBlog6.Models.Db.Repository;
 using System.IO;
+using WebBlog6.Models;
 
 namespace WebBlog6
 {
@@ -35,6 +36,8 @@ namespace WebBlog6
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<LoggingMiddleware>();
 
             // обработка ошибок HTTP
             string readText = File.ReadAllText("wwwroot\\404.html");

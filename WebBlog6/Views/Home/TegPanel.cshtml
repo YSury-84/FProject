@@ -24,8 +24,8 @@
                     </tr>
                 }
                 <tr>
-                    <form method="post" asp-controller="Home" asp-action="SaveTeg">
-                    <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" value=""></td>
+                    <form method="post" asp-controller="Home" asp-action="SaveTeg" onsubmit="return TegName(document.getElementById('TegName').value)">
+                    <td><input asp-for="TegName" class="form-control" style="border-radius:10px;" value="" id="TegName"></td>
                     <td><button style="border-radius:10px;">Добавить тег</button></td>
                     </form>
                 </tr>

@@ -13,5 +13,6 @@ namespace WebBlog6.Models.Db.Repository
         Task TegBlogsAdd(int sid, string tid);
         Task TegAdd(Teg teg);
         void TegList(ref List<Teg> listTeg);
+        Task LogAdd(Log log);
     }
 }

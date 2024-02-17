@@ -155,5 +155,15 @@ namespace WebBlog6.Models.Db.Repository
             }
         }
 
+        public async Task LogAdd(Log log)
+        {
+            // Добавление записи в Log
+            var entry = _context.Entry(log);
+            if (entry.State == EntityState.Detached)
+                _context.Logs.AddAsync(log);
+            // Сохранение изенений
+            _context.SaveChangesAsync();
+        }
+
     }
 }

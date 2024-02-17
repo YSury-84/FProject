@@ -194,7 +194,7 @@ namespace WebBlog6.Controllers
                 User user = new User() { Login = wbLogin };
                 if (_data.UserCookies(ref user))
                 {
-                    if (user.Role == "admin" || user.Role == "moder")
+                    if (user.Role == "admin" || user.Role == "moder" || user.Role == "user")
                     {
                         if (blog == null || blog.Autor == null || blog.Autor == "") blog = new Blog() { Autor = user.Login, PubDate = Convert.ToString(DateTime.Now)};
                         ViewBag.user = user;

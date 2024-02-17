@@ -9,11 +9,11 @@
     <tr>
         <td>
             <!-- Управление блогом: -->
-            <form method="post" asp-controller="Home" asp-action="SaveBlogModel">
+            <form method="post" asp-controller="Home" asp-action="SaveBlogModel" onsubmit="return BlogData(document.getElementById('Theme').value,document.getElementById('BlogText').value);">
             <label asp-for="Id"></label><br>
             <input asp-for="Id" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.Id"><br>
             <label asp-for="Theme"></label><br>
-            <input asp-for="Theme" class="form-control" style="border-radius:10px;width:600px;" value="@ViewBag.blog.Theme"><br>
+            <input asp-for="Theme" class="form-control" style="border-radius:10px;width:600px;" value="@ViewBag.blog.Theme" id="Theme"><br>
             <label asp-for="BlogText"></label><br>
             <textarea asp-for="BlogText" style="border-radius:10px;width:600px;" rows="7">
             @ViewBag.blog.BlogText

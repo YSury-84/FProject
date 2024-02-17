@@ -10,11 +10,13 @@
             <td colspan=2>
                 <!-- Вход  -->
                 <div id=next>
-                    <form method="post" asp-controller="Home" asp-action="Index">
+                    <form method="post" asp-controller="Home" asp-action="Index" onsubmit="return RegValid(document.getElementById('Login').value,document.getElementById('Pass').value,document.getElementById('PassCopy').value);">
                         <label asp-for="Login"></label><br>
-                        <input asp-for="Login" class="form-control" style="border-radius:10px;"><br>
+                        <input asp-for="Login" class="form-control" style="border-radius:10px;" id="Login"><br>
                         <label asp-for="Pass"></label><br>
-                        <input asp-for="Pass" class="form-control" style="border-radius:10px;"><br>
+                        <input asp-for="Pass" class="form-control" style="border-radius:10px;" id="Pass"><br>
+                        <label asp-for="Pass"></label><br>
+                        <input asp-for="Pass" class="form-control" style="border-radius:10px;" id="PassCopy"><br>
                         <label asp-for="Fio"></label><br>
                         <input asp-for="Fio" class="form-control" style="border-radius:10px;"><br>
                         <button style="border-radius:10px;" onklick="form.submit();">Зарегистрироваться</button>

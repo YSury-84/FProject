@@ -11,6 +11,7 @@ namespace WebBlog6.Models.Db.Context
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<TegBlog> TegBlogs { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         // Логика взаимодействия с таблицами в БД
         public DataContext(DbContextOptions<DataContext> options) : base(options)
