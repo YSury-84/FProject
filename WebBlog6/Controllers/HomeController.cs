@@ -239,6 +239,19 @@ namespace WebBlog6.Controllers
         [HttpPost]
         public IActionResult SaveBlogModel(BlogModel blogm)
         {
+
+            List<string> a = new List<string>();
+            a.Add("Data-1");
+            a.Add("Data-2");
+
+            string logMessage = Request.Cookies["Веселый"];
+
+            StreamWriter sw = new StreamWriter("debug.txt");
+            sw.WriteLine(logMessage);
+            sw.WriteLine(blogm.Tegs[1]);
+            sw.WriteLine(a[1]);
+            sw.Close();
+
             //Стандартная схема загрузки с авторизацией
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")

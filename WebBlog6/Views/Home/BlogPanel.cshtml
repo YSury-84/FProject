@@ -9,7 +9,7 @@
     <tr>
         <td>
             <!-- Управление блогом: -->
-            <form method="post" asp-controller="Home" asp-action="SaveBlogModel" onsubmit="return BlogData(document.getElementById('Theme').value,document.getElementById('BlogText').value);">
+            <form runat="server" method="post" asp-controller="Home" asp-action="SaveBlogModel" onsubmit="return BlogData(document.getElementById('Theme').value,document.getElementById('BlogText').value);">
             <label asp-for="Id"></label><br>
             <input asp-for="Id" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.Id"><br>
             <label asp-for="Theme"></label><br>
@@ -23,11 +23,10 @@
             <label asp-for="PubDate"></label><br>
             <input asp-for="PubDate" class="form-control" style="border-radius:10px;width:600px;" readonly value="@ViewBag.blog.PubDate"><br>
             Список тегов:<br>
-                <asp:CheckBoxList runat="Tegs" ID="CheckboxList1" RepeatColumns="3">
+                <asp:CheckBoxList id="Tegs" runat="server" RepeatLayout="OrderedList">
                     @foreach (var teg in ViewBag.tegs)
                     {
-                        <asp:ListItem>
-                            <input type="checkbox" value="@teg.TegName"> @teg.TegName</asp:ListItem><br>
+                        <asp:ListItem Selected="true">@teg.TegName</asp:ListItem>
                     }
                 </asp:CheckBoxList>
             <br>
