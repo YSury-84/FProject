@@ -116,6 +116,19 @@ namespace WebBlog6.Models.Db.Repository
                 listComments.Add(comment);
             }
         }
+        public void CommentDel(Comment comment)
+        {
+            //Удаление публикации
+            foreach (var comments in _context.Comments)
+            {
+                if (comments.Id == comment.Id)
+                {
+                    _context.Comments.Remove(comments);
+                }
+            }
+            // Сохранение изенений
+            _context.SaveChangesAsync();
+        }
 
         //Работа с базой TegBlogs
 

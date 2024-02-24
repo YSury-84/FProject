@@ -17,7 +17,21 @@
             {
                 @if (comment.SId == blog.Id)
                 {
-                    <tr><td colspan="2" align="left"><font size="-1">@comment.Text (@comment.Autor/@comment.PubDate)</font></td><td><button>Удалить</button></td></tr>
+                    <tr>
+                        <td colspan="2" align="left"><font size="-1">@comment.Text (@comment.Autor/@comment.PubDate)</font></td>
+                        <td>
+                            @if (ViewBag.user.Role == "admin" || ViewBag.user.Role == "moder" || ViewBag.user.Login == comment.Autor)
+                            {
+                                <form method="post" asp-controller="Home" asp-action="AddEditComment">
+                                    <input asp-for="Comment" type="hidden" value="" style="width:80%;">
+                                    <input asp-for="Id" value="3" style="width:80%;" type="hidden">
+                                    <input asp-for="IdBlog" value="@blog.Id" style="width:80%;" type="hidden">
+                                    <input asp-for="IdComment" value="@comment.Id" style="width:80%;" type="hidden">
+                                    <button>Удалить комментарий</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
                 }
             }
             <tr><td colspan="3" align="left">
@@ -34,7 +48,7 @@
             <tr>
                 <td align="left"></td>
                 <td><button style="width:200px;border-radius:10px;box">Изменить блог</button></td>
-                <td><button style="width:200px;border-radius:10px;box">Удалить блог</button></td>
+                <td><button style="width:200px;border-radius:10px;box" onclick="alert('Запрос не может быть выполнен, потому что функция и не реализована и логика удаление или скрыте - еще не утверждена/не продумана!')">Удалить блог</button></td>
             </tr>
         </table><br>
     }

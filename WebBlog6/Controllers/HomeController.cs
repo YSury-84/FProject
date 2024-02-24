@@ -308,6 +308,12 @@ namespace WebBlog6.Controllers
                         Comment comment = new Comment() { SId = idata.IdBlog, Text = idata.Comment, PubDate = Convert.ToString(DateTime.Now), Autor = user.Login };
                         _data.CommentAdd(comment);
                     }
+                    //Удаление комментария
+                    if (idata.Id == 3)
+                    {
+                        Comment comment = new Comment() { Id = idata.IdComment, SId = idata.IdBlog, Text = idata.Comment, PubDate = Convert.ToString(DateTime.Now), Autor = user.Login };
+                        _data.CommentDel(comment);
+                    }
                     //Передача пользователя
                     ViewBag.user = user;
                     //Передача блогов
