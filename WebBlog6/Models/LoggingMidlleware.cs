@@ -20,16 +20,12 @@ namespace WebBlog6.Models
             string logMessage = $"[{DateTime.Now}]: New request to http://{context.Request.Host.Value + context.Request.Path}{Environment.NewLine}";
             string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "RequestLog.txt");
             await File.AppendAllTextAsync(logFilePath, logMessage);
-            //Log log = new Log();
-            //log.DT = Convert.ToString(DateTime.Now);
-            //log.Message = logMessage;
-            //log.Login = "";
-            //_data.LogAdd(log);
         }
         public async Task InvokeAsync(HttpContext context)
         {
             LogConsole(context);
-            await LogFile(context);
+            //await LogFile(context);
+            LogFile(context);
 
             // Передача запроса далее по конвейеру
             await _next.Invoke(context);

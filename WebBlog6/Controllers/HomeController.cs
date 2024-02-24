@@ -242,7 +242,8 @@ namespace WebBlog6.Controllers
                 {
                     if (user.Role == "admin" || user.Role == "moder")
                     {
-                        if (blog == null || blog.Autor == null || blog.Autor == "") blog = new Blog() { Autor = user.Login, PubDate = Convert.ToString(DateTime.Now)};
+                        if (blog == null || blog.Autor == null || blog.Autor == "") 
+                            blog = new Blog() { Autor = user.Login, PubDate = Convert.ToString(DateTime.Now)};
                         ViewBag.user = user;
                         ViewBag.blog = blog;
                         List<Teg> listTeg = new List<Teg>();
@@ -263,6 +264,13 @@ namespace WebBlog6.Controllers
         [HttpPost]
         public IActionResult SaveBlogModel(BlogModel blogm)
         {
+
+            StreamWriter sw = new StreamWriter("debug.txt");
+            sw.WriteLine("Hello World!!");
+            sw.WriteLine(blogm.Id);
+            sw.Close();
+
+
             //Стандартная схема загрузки с авторизацией
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
@@ -272,6 +280,7 @@ namespace WebBlog6.Controllers
                 {
                     //Запись в базу данных статьи/блога
                     Blog blog = new Blog() { Autor = user.Login, Theme = blogm.Theme, BlogText = blogm.BlogText, PubDate = blogm.PubDate };
+                    if (blogm.Id >0) { blog.Id = blogm.Id; }
                     int i = _data.BlogAdd(blog);
                     //Передача пользователя
                     ViewBag.user = user;

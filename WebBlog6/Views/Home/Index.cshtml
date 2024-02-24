@@ -47,7 +47,16 @@
             </tr>
             <tr>
                 <td align="left"></td>
-                <td><button style="width:200px;border-radius:10px;box">Изменить блог</button></td>
+                <td>
+                    <form method="post" asp-controller="Home" asp-action="BlogPanel">
+                        <input asp-for="Id" value="@blog.Id" style="width:80%;" type="hidden">
+                        <input asp-for="Theme" value="@blog.Theme" style="width:80%;" type="hidden">
+                        <input asp-for="BlogText" value="@blog.BlogText" style="width:80%;" type="hidden">
+                        <input asp-for="Autor" value="@blog.Autor" style="width:80%;" type="hidden">
+                        <input asp-for="PubDate" value="@blog.PubDate" style="width:80%;" type="hidden">
+                        <button style="border-radius:10px;" onklick="form.submit();">Редактировать блог</button>
+                    </form>
+                </td>
                 <td><button style="width:200px;border-radius:10px;box" onclick="alert('Запрос не может быть выполнен, потому что функция и не реализована и логика удаление или скрыте - еще не утверждена/не продумана!')">Удалить блог</button></td>
             </tr>
         </table><br>

@@ -21,7 +21,6 @@ namespace WebBlog6.Models.Db.Repository
         public async Task UserAdd(User user)
         {
             // Добавление пользователя
-
             foreach (var people in _context.Users)
             {
                 if (people.Login == user.Login)
@@ -83,6 +82,13 @@ namespace WebBlog6.Models.Db.Repository
         public int BlogAdd(Blog blog)
         {
             // Добавление публикации
+            foreach (var blogs in _context.Blogs)
+            {
+                if (blog.Id == blogs.Id)
+                {
+                    _context.Blogs.Remove(blogs);
+                }
+            }
             var entry = _context.Entry(blog);
             if (entry.State == EntityState.Detached)
                 _context.Blogs.AddAsync(blog);
