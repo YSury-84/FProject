@@ -27,7 +27,7 @@
                                     <input asp-for="Id" value="3" style="width:80%;" type="hidden">
                                     <input asp-for="IdBlog" value="@blog.Id" style="width:80%;" type="hidden">
                                     <input asp-for="IdComment" value="@comment.Id" style="width:80%;" type="hidden">
-                                    <button>Удалить комментарий</button>
+                                    <button style="border-radius:10px;"><font color="red">Удалить комментарий</font></button>
                                 </form>
                             }
                         </td>
@@ -41,7 +41,7 @@
                         <input asp-for="Id" value="1" style="width:80%;" type="hidden">
                         <input asp-for="IdBlog" value="@blog.Id" style="width:80%;" type="hidden">
                         <input asp-for="IdComment" value="-1" style="width:80%;" type="hidden">
-                    <button><img src="/send_comment.jpg" height="32"></button>
+                        <button style="border-radius:10px;"><img src="/send_comment.png" height="32"></button>
                 </form>
                 </td>
             </tr>
@@ -57,7 +57,7 @@
                         <button style="border-radius:10px;" onklick="form.submit();">Редактировать блог</button>
                     </form>
                 </td>
-                <td><button style="width:200px;border-radius:10px;box" onclick="alert('Запрос не может быть выполнен, потому что функция и не реализована и логика удаление или скрыте - еще не утверждена/не продумана!')">Удалить блог</button></td>
+                <td><button style="width:200px;border-radius:10px;box" onclick="alert('Запрос не может быть выполнен, потому что функция и не реализована и логика удаление или скрыте - еще не утверждена/не продумана!')"><font color="red">Удалить блог</font></button></td>
             </tr>
         </table><br>
     }
