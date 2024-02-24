@@ -28,7 +28,20 @@ namespace WebBlog6.Controllers
                 User user = new User() { Login = wbLogin };
                 if (_data.UserCookies(ref user))
                 {
+                    //Передача пользователя
                     ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+
+                    //Передача комментариев
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
+                    Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Index", Login = user.Login };
+                    _data.LogAdd(log);
                     return View();
                 }
                 return View("Access");
@@ -48,7 +61,18 @@ namespace WebBlog6.Controllers
                             if (_data.UserAccess(ref people))
                             {
                                 Response.Cookies.Append("wbLogin", getuser.Login);
+                                //Передача пользователя
                                 ViewBag.user = people;
+                                //Передача блогов
+                                List<Blog> listBlogs = new List<Blog>();
+                                _data.BlogAll(ref listBlogs);
+                                ViewBag.blogs = listBlogs;
+                                //Передача тегов
+
+                                //Передача комментариев
+                                List<Comment> listComments = new List<Comment>();
+                                _data.CommentsList(ref listComments);
+                                ViewBag.listComments = listComments;
                                 Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "Index", Login = people.Login };
                                 _data.LogAdd(log);
                                 return View();
@@ -239,19 +263,6 @@ namespace WebBlog6.Controllers
         [HttpPost]
         public IActionResult SaveBlogModel(BlogModel blogm)
         {
-
-            List<string> a = new List<string>();
-            a.Add("Data-1");
-            a.Add("Data-2");
-
-            string logMessage = Request.Cookies["Веселый"];
-
-            StreamWriter sw = new StreamWriter("debug.txt");
-            sw.WriteLine(logMessage);
-            sw.WriteLine(blogm.Tegs[1]);
-            sw.WriteLine(a[1]);
-            sw.Close();
-
             //Стандартная схема загрузки с авторизацией
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
@@ -262,12 +273,16 @@ namespace WebBlog6.Controllers
                     //Запись в базу данных статьи/блога
                     Blog blog = new Blog() { Autor = user.Login, Theme = blogm.Theme, BlogText = blogm.BlogText, PubDate = blogm.PubDate };
                     int i = _data.BlogAdd(blog);
-                    //foreach (var tid in blogm.Tegs)
-                    //{
-                    //    _data.TegBlogsAdd(i,tid.TegName);
-                    //}
-                    //Отображение
+                    //Передача пользователя
                     ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+
+                    //Передача комментариев
+
                     Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveBlogModel", Login = user.Login };
                     _data.LogAdd(log);
                     return View("Index");
@@ -277,6 +292,42 @@ namespace WebBlog6.Controllers
             return View("Access");
         }
 
+        [HttpPost]
+        public IActionResult AddEditComment(IndexSendModel idata)
+        {
+            //Стандартная схема загрузки с авторизацией
+            string wbLogin = Request.Cookies["wbLogin"];
+            if (wbLogin != null && wbLogin != "")
+            {
+                User user = new User() { Login = wbLogin };
+                if (_data.UserCookies(ref user))
+                {
+                    //Добавление комментария
+                    if (idata.Id == 1)
+                    {
+                        Comment comment = new Comment() { SId = idata.IdBlog, Text = idata.Comment, PubDate = Convert.ToString(DateTime.Now), Autor = user.Login };
+                        _data.CommentAdd(comment);
+                    }
+                    //Передача пользователя
+                    ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+
+                    //Передача комментариев
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
+                    Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveBlogModel", Login = user.Login };
+                    _data.LogAdd(log);
+                    return View("Index");
+                }
+                return View("Access");
+            }
+            return View("Access");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

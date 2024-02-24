@@ -9,7 +9,9 @@ namespace WebBlog6.Models.Db.Repository
         bool UserCookies(ref User user);
         void UserAll(ref List<User> listUser);
         int BlogAdd(Blog blog);
-        Task CommentAdd(Comment comment);
+        void BlogAll(ref List<Blog> listBlog);
+        void CommentAdd(Comment comment);
+        void CommentsList(ref List<Comment> listComments);
         Task TegBlogsAdd(int sid, string tid);
         Task TegAdd(Teg teg);
         void TegList(ref List<Teg> listTeg);

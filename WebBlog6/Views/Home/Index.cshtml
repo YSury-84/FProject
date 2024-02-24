@@ -1,10 +1,46 @@
 ﻿@{
     ViewData["Title"] = "Главная страница";
 }
+@model IndexSendModel;
+<h1>@ViewData["Title"]</h1>
+
+<!-- Основные данные - Блоги -->
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var blog in ViewBag.blogs)
+    {
+        <table border="0" style="width:85%;border-radius:10px;box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);text-shadow: gray 0 0 2px;">
+            <tr><td><b>@blog.Theme</b></td><td width="200"><font color="green">@blog.Autor</font></td><td width="200"><font color="red">@blog.PubDate</font></td></tr>
+            <tr><td colspan="3" align="left">@blog.BlogText</td></tr>
+            <tr><td colspan="3" align="left"><em>Комментарии:</em></td></tr>
+            @foreach (var comment in ViewBag.listComments)
+            {
+                @if (comment.SId == blog.Id)
+                {
+                    <tr><td colspan="2" align="left"><font size="-1">@comment.Text (@comment.Autor/@comment.PubDate)</font></td><td><button>Удалить</button></td></tr>
+                }
+            }
+            <tr><td colspan="3" align="left">
+                    <form method="post" asp-controller="Home" asp-action="AddEditComment">
+                    Новый комментарий:<br>
+                        <input asp-for="Comment" type="text" value="" style="width:80%;">
+                        <input asp-for="Id" value="1" style="width:80%;" type="hidden">
+                        <input asp-for="IdBlog" value="@blog.Id" style="width:80%;" type="hidden">
+                        <input asp-for="IdComment" value="-1" style="width:80%;" type="hidden">
+                    <button><img src="/send_comment.jpg" height="32"></button>
+                </form>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"></td>
+                <td><button style="width:200px;border-radius:10px;box">Изменить блог</button></td>
+                <td><button style="width:200px;border-radius:10px;box">Удалить блог</button></td>
+            </tr>
+        </table><br>
+    }
 </div>
+
+<!-- Кнопки управления -->
 
 <table width="100%">
     <tr><td align="center" colspan="3"><-- Функцциональные клавиши согласно полномочий --></td></tr>

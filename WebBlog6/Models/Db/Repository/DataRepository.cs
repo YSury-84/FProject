@@ -90,10 +90,17 @@ namespace WebBlog6.Models.Db.Repository
             _context.SaveChangesAsync();
             return blog.Id;
         }
+        public void BlogAll(ref List<Blog> listBlog)
+        {
+            foreach (var blog in _context.Blogs)
+            {
+                listBlog.Add(blog);
+            }
+        }
 
         //Работа с базой Comments
 
-        public async Task CommentAdd(Comment comment)
+        public void CommentAdd(Comment comment)
         {
             // Добавление публикации
             var entry = _context.Entry(comment);
@@ -101,6 +108,13 @@ namespace WebBlog6.Models.Db.Repository
                 _context.Comments.AddAsync(comment);
             // Сохранение изенений
             _context.SaveChangesAsync();
+        }
+        public void CommentsList(ref List<Comment> listComments)
+        {
+            foreach (var comment in _context.Comments)
+            {
+                listComments.Add(comment);
+            }
         }
 
         //Работа с базой TegBlogs
