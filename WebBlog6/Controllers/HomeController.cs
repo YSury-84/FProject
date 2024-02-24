@@ -282,7 +282,9 @@ namespace WebBlog6.Controllers
                     //Передача тегов
 
                     //Передача комментариев
-
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
                     Log log = new Log() { TimeReg = Convert.ToString(DateTime.Now), Message = "SaveBlogModel", Login = user.Login };
                     _data.LogAdd(log);
                     return View("Index");
