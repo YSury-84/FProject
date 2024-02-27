@@ -6,12 +6,41 @@
 
 <!-- Основные данные - Блоги -->
 
+<script>
+    function sendget(url) {
+        var xhr = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+        var client = new xhr();
+        client.open('GET', url, true);
+        // Определяем обработчик
+        client.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                // Обработка результатов
+            }
+        };
+        client.send();
+    }
+</script>
+
 <div class="text-center">
     @foreach (var blog in ViewBag.blogs)
     {
         <table border="0" style="width:85%;border-radius:10px;box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);text-shadow: gray 0 0 2px;">
             <tr><td><b>@blog.Theme</b></td><td width="200"><font color="green">@blog.Autor</font></td><td width="200"><font color="red">@blog.PubDate</font></td></tr>
             <tr><td colspan="3" align="left">@blog.BlogText</td></tr>
+            <tr><td colspan="3" align="left">
+            @foreach (var teg in ViewBag.listTegs)
+            {
+                TempData["check"] = "";
+                        @foreach (var tegblog in ViewBag.listTegBlogs)
+                        {
+                            if (tegblog.BId == blog.Id && tegblog.TId == teg.TegName)
+                            {
+                                TempData["check"] = "checked";
+                            }
+                        }
+                        <input type="checkbox" id="@blog.Id@teg.TegName" @TempData["check"] onchange="sendget('/Home/SaveTegGet?BId=@blog.Id&TId=@teg.TegName&data='+document.getElementById('@blog.Id@teg.TegName').checked);"> @teg.TegName
+                    }
+            </td></tr>
             <tr><td colspan="3" align="left"><em>Комментарии:</em></td></tr>
             @foreach (var comment in ViewBag.listComments)
             {

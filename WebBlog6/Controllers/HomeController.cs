@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using WebBlog6.Models;
 using WebBlog6.Models.db;
@@ -35,7 +37,12 @@ namespace WebBlog6.Controllers
                     _data.BlogAll(ref listBlogs);
                     ViewBag.blogs = listBlogs;
                     //Передача тегов
-
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
                     //Передача комментариев
                     List<Comment> listComments = new List<Comment>();
                     _data.CommentsList(ref listComments);
@@ -68,7 +75,12 @@ namespace WebBlog6.Controllers
                                 _data.BlogAll(ref listBlogs);
                                 ViewBag.blogs = listBlogs;
                                 //Передача тегов
-
+                                List<Teg> listTegs = new List<Teg>();
+                                _data.TegList(ref listTegs);
+                                ViewBag.listTegs = listTegs;
+                                List<TegBlog> listTegBlogs = new List<TegBlog>();
+                                _data.TegBlogList(ref listTegBlogs);
+                                ViewBag.listTegBlogs = listTegBlogs;
                                 //Передача комментариев
                                 List<Comment> listComments = new List<Comment>();
                                 _data.CommentsList(ref listComments);
@@ -264,13 +276,6 @@ namespace WebBlog6.Controllers
         [HttpPost]
         public IActionResult SaveBlogModel(BlogModel blogm)
         {
-
-            StreamWriter sw = new StreamWriter("debug.txt");
-            sw.WriteLine("Hello World!!");
-            sw.WriteLine(blogm.Id);
-            sw.Close();
-
-
             //Стандартная схема загрузки с авторизацией
             string wbLogin = Request.Cookies["wbLogin"];
             if (wbLogin != null && wbLogin != "")
@@ -289,7 +294,12 @@ namespace WebBlog6.Controllers
                     _data.BlogAll(ref listBlogs);
                     ViewBag.blogs = listBlogs;
                     //Передача тегов
-
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
                     //Передача комментариев
                     List<Comment> listComments = new List<Comment>();
                     _data.CommentsList(ref listComments);
@@ -332,7 +342,12 @@ namespace WebBlog6.Controllers
                     _data.BlogAll(ref listBlogs);
                     ViewBag.blogs = listBlogs;
                     //Передача тегов
-
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
                     //Передача комментариев
                     List<Comment> listComments = new List<Comment>();
                     _data.CommentsList(ref listComments);
@@ -346,7 +361,28 @@ namespace WebBlog6.Controllers
             return View("Access");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [HttpGet]
+        public IActionResult SaveTegGet(int BId, string TId, string data)
+        {
+            StreamWriter sw = new StreamWriter("debug.txt");
+            sw.WriteLine("Hello World!!");
+            sw.WriteLine(BId);
+            sw.WriteLine(TId);
+            sw.WriteLine(data);
+            sw.Close();
+
+            if (data == "true")
+            {
+                _data.TegBlogsAdd(BId, TId);
+            } else
+            {
+                _data.TegBlogsRem(BId, TId);
+            }
+
+            return View();
+        }
+
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

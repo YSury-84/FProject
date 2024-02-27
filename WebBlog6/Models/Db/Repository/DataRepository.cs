@@ -150,6 +150,25 @@ namespace WebBlog6.Models.Db.Repository
             // Сохранение изенений
             _context.SaveChangesAsync();
         }
+        public async Task TegBlogsRem(int sid, string tid)
+        {
+            foreach (var bteg in _context.TegBlogs)
+            {
+                if (bteg.BId == sid && bteg.TId == tid)
+                {
+                    _context.TegBlogs.Remove(bteg);
+                }
+            }
+            // Сохранение изенений
+            _context.SaveChangesAsync();
+        }
+        public void TegBlogList(ref List<TegBlog> listTegBlogs)
+        {
+            foreach (var teg in _context.TegBlogs)
+            {
+                listTegBlogs.Add(teg);
+            }
+        }
 
         //Работа с базой Teg
 
