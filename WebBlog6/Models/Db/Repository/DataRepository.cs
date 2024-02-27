@@ -102,6 +102,10 @@ namespace WebBlog6.Models.Db.Repository
             {
                 listBlog.Add(blog);
             }
+            foreach (var blog in listBlog)
+            {
+                blog.BlogText = blog.BlogText.Replace("\n", "<br>");
+            }
         }
 
         //Работа с базой Comments

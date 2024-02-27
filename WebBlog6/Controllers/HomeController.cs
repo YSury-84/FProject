@@ -179,7 +179,23 @@ namespace WebBlog6.Controllers
                         _data.LogAdd(log);
                         return View("AdminPanel");
                     }
+                    //Передача пользователя
                     ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
+                    //Передача комментариев
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
                     return View("Index");
                 }
                 return View("Access");
@@ -206,7 +222,23 @@ namespace WebBlog6.Controllers
                         _data.LogAdd(log);
                         return View();
                     }
+                    //Передача пользователя
                     ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
+                    //Передача комментариев
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
                     return View("Index");
                 }
                 return View("Access");
@@ -235,7 +267,23 @@ namespace WebBlog6.Controllers
                         _data.LogAdd(log);
                         return View("TegPanel");
                     }
+                    //Передача пользователя
                     ViewBag.user = user;
+                    //Передача блогов
+                    List<Blog> listBlogs = new List<Blog>();
+                    _data.BlogAll(ref listBlogs);
+                    ViewBag.blogs = listBlogs;
+                    //Передача тегов
+                    List<Teg> listTegs = new List<Teg>();
+                    _data.TegList(ref listTegs);
+                    ViewBag.listTegs = listTegs;
+                    List<TegBlog> listTegBlogs = new List<TegBlog>();
+                    _data.TegBlogList(ref listTegBlogs);
+                    ViewBag.listTegBlogs = listTegBlogs;
+                    //Передача комментариев
+                    List<Comment> listComments = new List<Comment>();
+                    _data.CommentsList(ref listComments);
+                    ViewBag.listComments = listComments;
                     return View("Index");
                 }
                 return View("Access");
@@ -266,7 +314,9 @@ namespace WebBlog6.Controllers
                         return View();
                     }
                     //ViewBag.user = user;
-                    return View("Index");
+                    //вызов вызовет ошибку - оставлено для теста старницы обработки ошибок
+                    //return View("Index");
+                    return View("NoAccess");
                 }
                 return View("Access");
             }
