@@ -104,7 +104,7 @@ namespace WebBlog6.Models.Db.Repository
             }
             foreach (var blog in listBlog)
             {
-                blog.BlogText = blog.BlogText.Replace("\n", "<br>");
+                blog.BlogText = blog.BlogText.Replace("\n", "</br>");
             }
         }
 

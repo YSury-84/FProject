@@ -26,7 +26,7 @@
     {
         <table border="0" style="width:85%;border-radius:10px;box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);text-shadow: gray 0 0 2px;">
             <tr><td><b>@blog.Theme</b></td><td width="200"><font color="green">@blog.Autor</font></td><td width="200"><font color="red">@blog.PubDate</font></td></tr>
-            <tr><td colspan="3" align="left">@blog.BlogText</td></tr>
+            <tr><td colspan="3" align="left">@Html.Raw(@blog.BlogText)</td></tr>
             <tr><td colspan="3" align="left">
             @foreach (var teg in ViewBag.listTegs)
             {
