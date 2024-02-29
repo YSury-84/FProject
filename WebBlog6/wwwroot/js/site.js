@@ -46,3 +46,17 @@ function BlogData(t, b) {
     }
     return valid;
 }
+
+function filterContent() {
+    let elements = document.getElementsByClassName('blog-container');
+
+    for (let i = 0; i <= elements.length; i++) {
+        let blogText = elements[i].getElementsByTagName('p')[0].innerText;
+
+        if (!blogText.toLowerCase().includes(document.getElementById('findtxt').value.toLowerCase())) {
+            elements[i].style.display = 'none';
+        } else {
+            elements[i].style.display = 'inline-block';
+        }
+    }
+}
