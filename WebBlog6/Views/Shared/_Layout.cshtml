@@ -11,6 +11,8 @@
 <body style='background-image: url("/index.jpg");background-attachment:fixed;'>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <table width="100%"><tr>
+            <td width="70%">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web-Blog (С# 6.0)</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,6 +30,10 @@
                     </ul>
                 </div>
             </div>
+            </td><td align="right">
+            <label for="UserName" id="UserLogo"></label>
+            </td>
+            </tr></table>
         </nav>
     </header>
     <div class="container">
@@ -38,7 +44,11 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Web Blog (С# - разработчик) - <a asp-area="" asp-controller="Home" asp-action="About">Об авторе</a>
+            <table width="100%"><tr>
+                    <td>&copy; 2024 - Web Blog (С# - разработчик) - <a asp-area="" asp-controller="Home" asp-action="About">Об авторе</a></td>
+                    <td align="right"><a href="http://localhost:5031/swagger/index.html">swagger</a></td>
+                </tr>
+            </table>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

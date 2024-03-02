@@ -23,11 +23,15 @@
         };
         client.send();
     }
+
+    document.getElementById("UserLogo").innerHTML = "<img src='/user.jpg' height='32'><br> @ViewBag.user.Login (@ViewBag.user.Role)";
+
 </script>
 
 <div class="text-center">
     @foreach (var blog in ViewBag.blogs)
     {
+        TempData["findData"] = "";
         <div class="blog-container">
         <table border="0" style="width:85%;border-radius:10px;box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);text-shadow: gray 0 0 2px;">
             <tr><td><b>@blog.Theme</b></td><td width="200"><font color="green">@blog.Autor</font></td><td width="200"><font color="red">@blog.PubDate</font></td></tr>
@@ -36,20 +40,24 @@
             @foreach (var teg in ViewBag.listTegs)
             {
                 TempData["check"] = "";
-                        @foreach (var tegblog in ViewBag.listTegBlogs)
+                @foreach (var tegblog in ViewBag.listTegBlogs)
                         {
                             if (tegblog.BId == blog.Id && tegblog.TId == teg.TegName)
                             {
                                 TempData["check"] = "checked";
+                                TempData["findData"] = TempData["findData"] + @teg.TegName + ",";
                             }
                         }
-                <input type="checkbox" id="@blog.Id@teg.TegName" @TempData["check"] onchange="sendget('/Home/SaveTegGet?BId=@blog.Id&TId=@teg.TegName&data='+document.getElementById('@blog.Id@teg.TegName').checked);"> @teg.TegName
-                        @if (TempData["check"] == "checked")
-                        {
-                            <p hidden>@teg.TegName</p>
+                            @if (ViewBag.user.Role == "user")
+                            {
+                                <input type="checkbox" id="@blog.Id@teg.TegName" @TempData["check"] onclick="return false;" onchange="sendget(' /Home/SaveTegGet?BId =@blog.Id&TId =@teg.TegName&data ='+document.getElementById(' @blog.Id@teg.TegName').checked);"> @teg.TegName
+                            }
+                            @if (ViewBag.user.Role != "user")
+                            {
+                            <input type="checkbox" id="@blog.Id@teg.TegName" @TempData["check"] onchange="sendget('/Home/SaveTegGet?BId=@blog.Id&TId=@teg.TegName&data='+document.getElementById('@blog.Id@teg.TegName').checked);"> @teg.TegName
+                            }
                         }
-            }
-                        <p hidden>Все</p>
+            <p hidden>@TempData["findData"]</p>
             </td></tr>
             <tr><td colspan="3" align="left"><em>Комментарии:</em></td></tr>
             @foreach (var comment in ViewBag.listComments)
